@@ -10,7 +10,7 @@ A website that can compare the price of a product from different resources (Tiki
 
 ### System Design
 
-![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/call4service.jpg?raw=true)
+![alt text](https://github.com/tintin0122/call_for_service/blob/c7c79eef7ac8bc35d9c8fa43b01a9655b1f8a456/images/call4service.jpg)
 
 ##### Discovery Service
 The service is a database populated with information on how to dispatch requests to microservice instances.
