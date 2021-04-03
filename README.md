@@ -1,5 +1,5 @@
 # CALL FOR SERVICE
-A website that can compare the price of a product from different resources (Tiki, Lazada, Shopee...)
+A service allow customer to create and search events.
 
 - System Design
 - Software Principle
@@ -89,6 +89,9 @@ The layer that brings all of the code components together and exposes them for u
 
 *Note: For this assignment, I simplify the schema to one table(Product table) in product-service.
 
+### SonarQube
+SonarQube collects and analyzes source code, measuring quality and providing reports for your projects. It combines static and dynamic analysis tools and enables quality to be measured continuously over time. At each level, SonarQube produces metric values and statistics, revealing problematic areas in the source that require inspection or improvement.
+SonarQube not only addresses core developers and programmers but, project managers and even higher managerial levels due to the management aspect it offers. This concept is further strengthened by SonarQube's enhanced reporting capabilities and multiple views addressing source code from different perspectives.
 
 ### How to run the application
 - Install [JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
