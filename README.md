@@ -112,10 +112,20 @@ The layer that brings all of the code components together and exposes them for u
 
 ### API Document
 - Get events by time range: (iphone, vinfast, shoe) http://localhost:8080/customers/{customer-id}/events?startTime={time}&endTime={time}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
-  - example: curl --location --request GET 'http://localhost:8080/customers/10001/products/search?product-name=iphone' \
---header 'x-user: user001'
+  - example: curl --location --request GET 'localhost:8080/api/v1/customers/1002/events?startTime=2021-02-20%2017:15:50.000&endTime=2021-04-20%2017:15:50.000&sort=eventTime,asc' \
+--header 'x-user: 1002'
 - Get events by responder code: http://localhost:8080/customers/{customer-id}/events?responder={responderCode}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
-  - example: curl --location --request GET 'http://localhost:8080/customers/user001/products/1202' \
---header 'x-user: user001' 
+  - example: curl --location --request GET 'localhost:8080/api/v1/customers/1002/events?responder=OFFICER_001&sort=eventTime,asc' \
+--header 'x-user: 1002'
 - Create event: 'http://localhost:8080/customers/{customer-id}/events
-  - curl --location --request GET  'http://localhost:8080/customers/{customer-id}/events
+  - example: curl --location --request POST 'localhost:8080/api/v1/customers/1002/events' \
+--header 'x-user: 1002' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=F644C23EF48242C368B64527373192F6' \
+--data-raw '{
+    "event_number": "66002",
+    "event_type_code": "CMO",
+    "event_time": "2021-01-20 17:15:50.000",
+    "dispatch_time": "2021-01-22 17:15:02.000",
+    "responder": "OFFICER_002"
+}'
