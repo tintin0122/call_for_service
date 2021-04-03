@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.example.callforservice</groupId>
+        <artifactId>callforservice</artifactId>
+        <version>${global.version}</version>
+    </parent>
+
+    <artifactId>coverage</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <build.directory.rest>../rest/target</build.directory.rest>
+        <build.directory.configuration>../configuration/target</build.directory.configuration>
+        <build.directory.usecase>../usecase/target</build.directory.usecase>
+        <build.directory.repository>../repository/target</build.directory.repository>
+
+        <classes.directory.rest>../rest/target/classes</classes.directory.rest>
+        <classes.directory.configuration>../configuration/target/classes</classes.directory.configuration>
+        <classes.directory.usecase>../usecase/target/classes</classes.directory.usecase>
+        <classes.directory.repository>../repository/target/classes</classes.directory.repository>
+
+        <sources.directory.rest>../rest/src/main/java</sources.directory.rest>
+        <sources.directory.configuration>../configuration/src/main/java</sources.directory.configuration>
+        <sources.directory.usecase>../usecase/src/main/java</sources.directory.usecase>
+        <sources.directory.repository>../repository/src/main/java</sources.directory.repository>
+
+        <generated-sources.directory.rest>../rest/target/generated-sources/annotations
+        </generated-sources.directory.rest>
+        <generated-sources.directory.configuration>../configuration/target/generated-sources/annotations
+        </generated-sources.directory.configuration>
+        <generated-sources.directory.usecase>../usecase/target/generated-sources/annotations
+        </generated-sources.directory.usecase>
+        <generated-sources.directory.repository>../repository/target/generated-sources/annotations
+        </generated-sources.directory.repository>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <!-- Copy the ant tasks jar. Needed for ts.jacoco.report-ant . -->
+                    <execution>
+                        <id>jacoco-dependency-ant</id>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <phase>process-test-resources</phase>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.jacoco</groupId>
+                                    <artifactId>org.jacoco.ant</artifactId>
+                                </artifactItem>
+                            </artifactItems>
+                            <stripVersion>true</stripVersion>
+                            <outputDirectory>${basedir}/target/jacoco-jars</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo message="Generating JaCoCo Reports" />
+                                <taskdef name="report" classname="org.jacoco.ant.ReportTask">
+                                    <classpath path="${basedir}/target/jacoco-jars/org.jacoco.ant.jar" />
+                                </taskdef>
+                                <mkdir dir="${basedir}/target/coverage-report" />
+                                <report>
+                                    <executiondata>
+                                        <fileset dir="${build.directory.rest}">
+                                            <include name="jacoco.exec" />
+                                        </fileset>
+                                        <fileset dir="${build.directory.configuration}">
+                                            <include name="jacoco.exec" />
+                                        </fileset>
+                                        <fileset dir="${build.directory.usecase}">
+                                            <include name="jacoco.exec" />
+                                        </fileset>
+                                        <fileset dir="${build.directory.repository}">
+                                            <include name="jacoco.exec" />
+                                        </fileset>
+                                    </executiondata>
+                                    <structure name="JaCoCo-Multi Project">
+                                        <group name="JaCoCo-Multi">
+                                            <classfiles>
+                                                <fileset dir="${classes.directory.rest}" />
+                                                <fileset dir="${classes.directory.configuration}" />
+                                                <fileset dir="${classes.directory.usecase}" />
+                                                <fileset dir="${classes.directory.repository}" />
+                                            </classfiles>
+                                            <sourcefiles encoding="UTF-8">
+                                                <fileset dir="${sources.directory.rest}" />
+                                                <fileset dir="${sources.directory.configuration}" />
+                                                <fileset dir="${sources.directory.usecase}" />
+                                                <fileset dir="${sources.directory.repository}" />
+                                                <fileset dir="${generated-sources.directory.rest}" />
+                                                <fileset dir="${generated-sources.directory.configuration}" />
+                                                <fileset dir="${generated-sources.directory.usecase}" />
+                                                <fileset dir="${generated-sources.directory.repository}" />
+                                            </sourcefiles>
+                                        </group>
+                                    </structure>
+                                    <html destdir="${basedir}/target/coverage-report/html" />
+                                    <xml destfile="${basedir}/target/coverage-report/coverage-report.xml" />
+                                    <csv destfile="${basedir}/target/coverage-report/coverage-report.csv" />
+                                </report>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>org.jacoco.ant</artifactId>
+                        <version>0.8.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
