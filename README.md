@@ -114,6 +114,7 @@ SonarQube not only addresses core developers and programmers but, project manage
 
 
 ### API Document
+Using Swagger for api document: http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config
 - customerID: 1001,1002,1003
 - responderCode: OFFICER_001,OFFICER_002,OFFICER_003
 - sorting by: 'eventNumber,eventTime,dispatchTime' with direction 'asc,desc'
