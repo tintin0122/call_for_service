@@ -120,8 +120,8 @@ SonarQube not only addresses core developers and programmers but, project manage
 - Get events by time range: (iphone, vinfast, shoe) http://localhost:8080/customers/{customer-id}/events?startTime={time}&endTime={time}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
   - example: curl --location --request GET 'localhost:8080/api/v1/customers/1002/events?startTime=2021-02-20%2017:15:50.000&endTime=2021-04-20%2017:15:50.000&sort=eventTime,asc' \
 --header 'x-user: 1002'
-- Get events by responder code: http://localhost:8080/customers/{customer-id}/events?responder={responderCode}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
-  - example: curl --location --request GET 'localhost:8080/api/v1/customers/1002/events?responder=OFFICER_001&sort=eventTime,asc' \
+- Get events by responder code: http://localhost:8080/responders/{id}/events?page={pageNumber}&size={sizeNubmer}&sort={field,direction}
+  - example: curl --location --request GET 'localhost:8080/api/v1/responders/OFFICER_002/events?sort=eventNumber,desc' \
 --header 'x-user: 1002'
 - Create event: 'http://localhost:8080/customers/{customer-id}/events
   - example: curl --location --request POST 'localhost:8080/api/v1/customers/1002/events' \
