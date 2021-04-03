@@ -113,6 +113,7 @@ The layer that brings all of the code components together and exposes them for u
 ### API Document
 - customerID: 1001,1002,1003
 - responderCode: OFFICER_001,OFFICER_002,OFFICER_003
+- sorting by: 'eventNumber,eventTime,dispatchTime' with direction 'asc,desc'
 - Get events by time range: (iphone, vinfast, shoe) http://localhost:8080/customers/{customer-id}/events?startTime={time}&endTime={time}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
   - example: curl --location --request GET 'localhost:8080/api/v1/customers/1002/events?startTime=2021-02-20%2017:15:50.000&endTime=2021-04-20%2017:15:50.000&sort=eventTime,asc' \
 --header 'x-user: 1002'
