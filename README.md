@@ -10,7 +10,7 @@ A website that can compare the price of a product from different resources (Tiki
 
 ### System Design
 
-![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/smart_choice_flow.jpg?raw=true)
+![alt text](https://github.com/tintin0122/call_for_service/blob/c7c79eef7ac8bc35d9c8fa43b01a9655b1f8a456/images/call4service.jpg)
 
 ##### Discovery Service
 The service is a database populated with information on how to dispatch requests to microservice instances.
@@ -40,9 +40,9 @@ Clean architecture is a software design philosophy that separates the elements o
 
 The main rule of clean architecture is that code dependencies can only move from the outer levels inward. Code on the inner layers can have no knowledge of functions on the outer layers. The variables, functions and classes (any entities) that exist in the outer layers can not be mentioned in the more inward levels. It is recommended that data formats also stay separate between levels.
 
-![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/smart_choice_architecture.jpg?raw=true)
+![alt text](https://github.com/tintin0122/call_for_service/blob/69ed2992168e5ccf524e2f6e74c5136dc1332a4c/images/call4service_architecture.jpg)
 
-![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/smart_choice_architecture_2.jpg?raw=true)
+![alt text](https://github.com/tintin0122/call_for_service/blob/69ed2992168e5ccf524e2f6e74c5136dc1332a4c/images/call4service_architecture_2.jpg)
 
 ##### Separation of concerns
 Separation of concerns is a principle used in programming to separate an application into units, with minimal overlapping between the functions of the individual units.
@@ -81,7 +81,7 @@ The SOLID Principles are five principles of Object-Oriented class design. They a
 
 
 
-![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/smart_choice_structure.jpg?raw=true)
+![alt text](https://github.com/tintin0122/call_for_service/blob/69ed2992168e5ccf524e2f6e74c5136dc1332a4c/images/database.jpg)
 ##### Entities Layer (domain module)
 The layer that describes the universal behavior of a thing that can be used across all applications. This can be as simple as a data structure, to a class with methods and behavior - as long as that behavior is the same regardless of what application it is injected in.
 
