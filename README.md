@@ -18,15 +18,8 @@ The service is a database populated with information on how to dispatch requests
 ##### Gateway Service
 The service encapsulates the internal system architecture and provides an API that is tailored to each client. 
 
-##### Product Service
-This is core business of Smart Choice system. It call to Crawler service when client search for product by using name and store these searching informations.
-When client get detail information of specific product, this service will retrieve from Redis database to avoid make a request to Crawler Service.
-
-##### Crawler Service
-This service will responsible for searching product on external resources(Tiki,Lazada,Shopee,...) and store these product in database.
-
-##### Audit Service
-logging all client activities.
+##### Call For Service
+The service will responsible for search events based on time range or responder. 
 
 ##### Identity Provider
 An identity provider is a service that stores and verifies user identity. (e.g: Keycloak)
@@ -68,27 +61,20 @@ The SOLID Principles are five principles of Object-Oriented class design. They a
 ### Project structure & application configuration
 | application       | Port          |
 | ------------------| ------------- |
-| audit-service     | 8082          |
-| crawler-service   | 8083          |
-| discovery-service | 8761          |
-| gateway-service   | 8080          |
-| product-service   | 8081          |
-| sandbox-service   | 8180          |
+| call-for-service  | 8080          |
 | postgre           | 5434          |
-| mongo             | 27017         |
-| redis             | 6379          |
-| rabbitmq          | 15672         |
+| sonar             | 9000          |
 
 
 
-![alt text](https://github.com/tintin0122/call_for_service/blob/69ed2992168e5ccf524e2f6e74c5136dc1332a4c/images/database.jpg)
+![alt text](https://github.com/tintin0122/call_for_service/blob/b202faa4803ad1d63f79cb3887298cc15e77862e/images/project_structure.jpg)
 ##### Entities Layer (domain module)
 The layer that describes the universal behavior of a thing that can be used across all applications. This can be as simple as a data structure, to a class with methods and behavior - as long as that behavior is the same regardless of what application it is injected in.
 
 ##### Use Cases Layer(usecase module)
 The layer that contains application specific business rules, where you can define how your application interacts with the entities layer. This defines business processes and workflows. Depends on entities layer, but also defines various contracts that will be implemented by external layers.
 
-##### Interface Adapter Layer (Rest, Lookup, Repository module)
+##### Interface Adapter Layer (Rest, Repository module)
 The layer which implements various interfaces define in the use case layer. As we outer layers, we start to move towards more high level systems, utilizing frameworks to implement a lot of the heavy lifting for our functionality, without tying us into a specific solution. This is great that we separate out this into its own layer because in the event we change the structure of our data, it won't have a large affect on the structure of the application itself.
 - rest: handles incoming HTTP requests, invoke approriate use-case and send response back to the caller.
 - repository: contains configuration and business logic to manipulate with database.
@@ -99,7 +85,7 @@ The layer that brings all of the code components together and exposes them for u
 
 
 ### ERD Diagram
-![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/smart_choice_class.jpg?raw=true)
+![alt text](https://github.com/tintin0122/call_for_service/blob/69ed2992168e5ccf524e2f6e74c5136dc1332a4c/images/database.jpg)
 
 *Note: For this assignment, I simplify the schema to one table(Product table) in product-service.
 
@@ -108,28 +94,28 @@ The layer that brings all of the code components together and exposes them for u
 - Install [JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 - Install [Docker](https://www.docker.com/products/docker-desktop)
 - Install [Maven](https://maven.apache.org/download.cgi?Preferred=ftp://mirror.reverse.net/pub/apache/)
-- Clone the smart_choice repository
+- Clone the call_for_service repository
 - Open terminal, navigate into the root directory of this project and run command: "docker-compose up"
-- Configuration RabbitMQ
-  - Go to: http://localhost:15672/ and login with account: rabbitmq/rabbitmq
-  ![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/rabbitmq_login.jpg?raw=true)
-  - Add a new Queue
-  ![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/rabbitmq_queue.jpg?raw=true)
-  - Add a new Exchange
-  ![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/rabbitmq_exchange.jpg?raw=true)
-  - Add binding to queue
-  ![alt text](https://github.com/tintin0122/smart_choice/blob/main/images/rabbitmq_binding.jpg?raw=true)
+- Sonarqube Dashboard:
+  - Go to: http://localhost:9000 and login with account: admin/admin
+  ![alt text](https://github.com/tintin0122/call_for_service/blob/b202faa4803ad1d63f79cb3887298cc15e77862e/images/sonar_login.jpg)
+  - Overall project
+  ![alt text](https://github.com/tintin0122/call_for_service/blob/b202faa4803ad1d63f79cb3887298cc15e77862e/images/sonar_projects.jpg)
+  - Detail of Call For Service project:
+  ![alt text](https://github.com/tintin0122/call_for_service/blob/b202faa4803ad1d63f79cb3887298cc15e77862e/images/sonar_issue.jpg)
 
-- Run services: (note: make sure starting discovery-service at first)
-  - discovery-service, audit-service, gateway-service, sandbox-service: mvn clean install && java -jar target/<service-name>-1.0.0.jar
-  - product-service, crawler-service: mvn clean install && java -jar configuration/target/configuration-1.0.0.jar
+- Generate coverage report:
+  - mvn clean install sonar:sonar
+- Run services:
+  - call-for-service: mvn clean install && java -jar configuration/target/configuration-1.0.0.jar
+
 
 ### API Document
-- Searching product by name: (iphone, vinfast, shoe) http://localhost:8080/customers/{customer-id}/products/search?product-name={search-keyword}
-  - example: curl --location --request GET 'http://localhost:8080/customers/user001/products/search?product-name=iphone' \
+- Get events by time range: (iphone, vinfast, shoe) http://localhost:8080/customers/{customer-id}/events?startTime={time}&endTime={time}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
+  - example: curl --location --request GET 'http://localhost:8080/customers/10001/products/search?product-name=iphone' \
 --header 'x-user: user001'
-- Go to product detail: http://localhost:8080/customers/{customer-id}/products/{product-id}
+- Get events by responder code: http://localhost:8080/customers/{customer-id}/events?responder={responderCode}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
   - example: curl --location --request GET 'http://localhost:8080/customers/user001/products/1202' \
 --header 'x-user: user001' 
-- Get user activities:
-  - curl --location --request GET 'http://localhost:8080/audit/customer-activity'
+- Create event: 'http://localhost:8080/customers/{customer-id}/events
+  - curl --location --request GET  'http://localhost:8080/customers/{customer-id}/events
