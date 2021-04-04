@@ -6,6 +6,11 @@ import com.example.callforservice.rest.dto.ResponseEvent;
 import com.example.callforservice.rest.mapper.EventMapper;
 import com.example.callforservice.usecase.CreateEventUseCase;
 import com.example.callforservice.usecase.SearchEventUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -28,7 +33,16 @@ public class EventController {
 
   @Autowired private EventMapper eventMapper;
 
-  @GetMapping("/users/{id}/events")
+  @Operation(summary = "Get events within time range")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Success",
+            content = {@Content(mediaType = "application/json")}),
+        @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
+      })
+  @GetMapping("/customers/{id}/events")
   public ResponseEntity<List<ResponseEvent>> getEventsByTimeRange(
       @PathVariable(name = "id") String userId,
       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") LocalDateTime startTime,
@@ -45,16 +59,38 @@ public class EventController {
         HttpStatus.OK);
   }
 
-  @PostMapping("/users/{id}/events")
+  @Operation(summary = "Create an Event")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Event created",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ResponseEvent.class))
+            }),
+        @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
+      })
+  @PostMapping("/customers/{id}/events")
   public ResponseEntity<ResponseEvent> createEvent(
       @PathVariable(name = "id") String userId, @RequestBody EventDto eventDto) {
     Event event = createEventUseCase.create(userId, eventMapper.toEvent(eventDto));
     return new ResponseEntity<>(eventMapper.toResponseEvent(event), HttpStatus.OK);
   }
 
-  @GetMapping("/users/{id}/events")
+  @Operation(summary = "Get events which belong to responder")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Success",
+            content = {@Content(mediaType = "application/json")}),
+        @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
+      })
+  @GetMapping("/responders/{id}/events")
   public ResponseEntity<List<ResponseEvent>> getEventsByResponder(
-      @RequestParam(defaultValue = "", name = "responder") String responderId,
+      @PathVariable(name = "id") String responderId,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "20") int size,
       @RequestParam(defaultValue = "eventTime,desc") String[] sort) {

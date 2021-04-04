@@ -55,7 +55,7 @@ CREATE SEQUENCE IF NOT EXISTS customer_id_seq
     MINVALUE 1
     MAXVALUE 9223372036854775807
     START 1001
-    OWNED BY customer.user_id;
+    OWNED BY customer.customer_id;
 
 CREATE SEQUENCE IF NOT EXISTS responder_id_seq
     INCREMENT 1
