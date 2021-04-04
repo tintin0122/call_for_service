@@ -87,7 +87,8 @@ The layer that brings all of the code components together and exposes them for u
 ### ERD Diagram
 ![alt text](https://github.com/tintin0122/call_for_service/blob/69ed2992168e5ccf524e2f6e74c5136dc1332a4c/images/database.jpg)
 
-*Note: For this assignment, I simplify the schema to one table(Product table) in product-service.
+### Data Modeling
+![alt text](https://github.com/tintin0122/call_for_service/blob/4ef9cda4e89fce25b40d95a3b24dedbc154e2f73/images/datamodel.jpg)
 
 ### SonarQube
 SonarQube collects and analyzes source code, measuring quality and providing reports for your projects. It combines static and dynamic analysis tools and enables quality to be measured continuously over time. At each level, SonarQube produces metric values and statistics, revealing problematic areas in the source that require inspection or improvement.
