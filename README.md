@@ -120,7 +120,7 @@ Using Swagger for api document: http://localhost:8080/swagger-ui/index.html?conf
 - responderCode: OFFICER_001,OFFICER_002,OFFICER_003
 - sorting by: 'eventNumber,eventTime,dispatchTime' with direction 'asc,desc'
 - DateTime format: 'yyyy-MM-dd HH:mm:ss.SSS'
-- Get events by time range: (iphone, vinfast, shoe) http://localhost:8080/customers/{customer-id}/events?startTime={time}&endTime={time}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
+- Get events by time range: http://localhost:8080/customers/{customer-id}/events?startTime={time}&endTime={time}&page={pageNumber}&size={sizeNubmer}&sort={field,direction}
   - example: curl --location --request GET 'localhost:8080/api/v1/customers/1002/events?startTime=2021-02-20%2017:15:50.000&endTime=2021-04-20%2017:15:50.000&sort=eventTime,asc' \
 --header 'x-user: 1002'
 - Get events by responder code: http://localhost:8080/responders/{id}/events?page={pageNumber}&size={sizeNubmer}&sort={field,direction}
