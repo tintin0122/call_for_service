@@ -10,11 +10,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn clean install -DskipTests'
             }
         }
         stage('Test') {
             steps {
+                sh "docker-compose --version"
+                sh "docker-compose -up"
                 sh 'mvn test'
             }
         }
