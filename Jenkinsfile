@@ -17,7 +17,10 @@ pipeline {
             steps {
                 sh "docker-compose --version"
                 sh "docker-compose up"
+                sh "docker ps -a -q"
                 sh 'mvn test'
+                sh "docker-compose stop"
+                sh "docker rm $(docker ps -a -q)"
             }
         }
     }
