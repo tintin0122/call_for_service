@@ -20,7 +20,7 @@ pipeline {
                 sh "docker ps -a -q"
                 sh 'mvn test'
                 sh "docker-compose stop"
-                sh "docker rm $(docker ps -a -q)"
+                sh "docker-compose down"
             }
         }
     }
