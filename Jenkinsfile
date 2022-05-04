@@ -8,11 +8,11 @@ pipeline {
         pollSCM '* * * * *'
     }
     stages {
-        stage('Build') {
-            steps {
-                sh 'mvn clean install -DskipTests'
-            }
-        }
+//         stage('Build') {
+//             steps {
+//                 sh 'mvn clean install -DskipTests'
+//             }
+//         }
         stage('Test') {
             steps {
                 sh "docker-compose --version"
