@@ -15,7 +15,7 @@ pipeline {
 //         }
         stage('Test') {
             steps {
-                sh "sudo docker-compose --version"
+                sh "docker-compose --version"
                 sh "docker-compose up"
                 sh "docker ps -a -q"
                 sh 'mvn test'
