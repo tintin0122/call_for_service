@@ -16,7 +16,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                    sudo chmod 777 /var/run/docker.sock
+                    sudo chown root:jenkins /var/run/docker.sock
                     docker-compose --version
                 '''
                 sh "docker-compose up"
