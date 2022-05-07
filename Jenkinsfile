@@ -15,12 +15,9 @@ pipeline {
 //         }
         stage('Test') {
             steps {
-                sh "docker-compose --version"
                 sh "docker-compose up -d"
-                sh "docker ps -a -q"
                 sh 'mvn test'
-                sh "docker-compose stop"
-                sh "docker-compose down"
+                sh "docker-compose down -v"
             }
         }
     }
