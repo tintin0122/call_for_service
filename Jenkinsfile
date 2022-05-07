@@ -4,6 +4,9 @@ pipeline {
         maven 'maven'
         jdk 'jdk8'
     }
+    environment {
+        PATH = "$PATH:/usr/local/bin"
+    }
     triggers {
         pollSCM '* * * * *'
     }
@@ -15,9 +18,9 @@ pipeline {
 //         }
         stage('Test') {
             steps {
-                sh "/usr/local/bin/docker-compose up -d"
+                sh "docker-compose up -d"
                 sh 'mvn test'
-                sh "/usr/local/bin/docker-compose down -v"
+                sh "docker-compose down -v"
             }
         }
     }
