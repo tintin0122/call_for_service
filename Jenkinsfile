@@ -15,9 +15,9 @@ pipeline {
 //         }
         stage('Test') {
             steps {
-                sh "docker-compose up -d"
+                sh "/usr/local/bin/docker-compose up -d"
                 sh 'mvn test'
-                sh "docker-compose down -v"
+                sh "/usr/local/bin/docker-compose down -v"
             }
         }
     }
