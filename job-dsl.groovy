@@ -1,4 +1,4 @@
-pipelineJob('Call For Service') {
+pipelineJob('Call_For_Service') {
 
     def repo = 'https://github.com/tintin0122/call_for_service.git'
 
