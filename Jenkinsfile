@@ -6,6 +6,7 @@ pipeline {
     }
     environment {
         PATH = "$PATH:/usr/local/bin"
+        JAVA_HOME = "/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home"
     }
     triggers {
         pollSCM '* * * * *'
