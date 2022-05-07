@@ -5,7 +5,7 @@ pipeline {
         jdk 'jdk8'
     }
     environment {
-        PATH = "$PATH:/usr/local/bin"
+        PATH = "$PATH:/usr/local/bin:/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home/bin"
         JAVA_HOME = "/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home/"
     }
     triggers {
