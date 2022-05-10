@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'maven'
+        sonar 'sonar'
     }
     environment {
         JAVA_HOME = "/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home/"
