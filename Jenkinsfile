@@ -20,7 +20,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh "docker-compose up -d"
-                sh 'mvn test'
+                sh 'mvn clean install'
                 sh "docker-compose down -v"
             }
         }
