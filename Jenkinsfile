@@ -28,7 +28,7 @@ pipeline {
         stage('sonar-scanner') {
             def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
             withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
-                sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://sonarqube:8084 -Dsonar.login=${sonarLogin} -Dsonar.projectName=call_for_service -Dsonar.projectVersion=1 -Dsonar.projectKey=GS -Dsonar.coverage.jacoco.xmlReportPaths=coverage/target/coverage-report/coverage-report.xml -Dsonar.language=java"
+                sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://localhost:8084 -Dsonar.login=${sonarLogin} -Dsonar.projectName=call_for_service -Dsonar.projectVersion=1 -Dsonar.projectKey=GS -Dsonar.coverage.jacoco.xmlReportPaths=coverage/target/coverage-report/coverage-report.xml -Dsonar.language=java"
             }
         }
     }
