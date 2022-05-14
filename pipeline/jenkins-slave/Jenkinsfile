@@ -2,11 +2,9 @@ pipeline {
     agent { label 'docker-slave' }
     tools {
         maven 'maven'
+        java 'jdk8'
     }
-    environment {
-        JAVA_HOME = "/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home/"
-        PATH = "$PATH:/usr/local/bin:/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home/bin"
-    }
+
     triggers {
         pollSCM '* * * * *'
     }
