@@ -4,6 +4,11 @@ pipeline {
         maven 'maven'
     }
 
+    environment {
+        JAVA_HOME = "/usr/local/openjdk-8"
+        PATH = "$PATH:/usr/local/bin:/usr/local/openjdk-8/bin"
+    }
+
     triggers {
         pollSCM '* * * * *'
     }
