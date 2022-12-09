@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'my-defined-label'}
+    agent any
     tools {
         maven 'maven'
     }
